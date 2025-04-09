@@ -15,18 +15,27 @@
 <body>
     <header>
         <div class="logo">star</div>
-        <nav class="nav-links">
-            <a href="#">Shap All</a>
-            <a href="#">About</a>
-            <a href="#">Notice</a>
+        <nav>
+            <div class="nav-links">
+                <button class="close-btn">✕</button>
+                <ul>
+                    <li><a href="#"></a>Shop All</li>
+                    <li><a href="#"></a>About</li>
+                    <li><a href="#"></a>Notice</li>
+                </ul>
+            </div>
+            <div class="overlay"></div>
+            <!-- <div class="close-icon">
+                <img src="images/close.png" alt="Close">
+            </div> -->
         </nav>
         <div class="user-icon">
             <img src="images/user.png" alt="User">
             <img src="images/cart.png" alt="Search">
-       </div>
-       <div class="menu-icon">
-        <img src="images/menu.png" alt="Menu">
-   </div>
+        </div>
+        <div class="menu-icon">
+            <img src="images/menu.png" alt="Menu">
+        </div>
     </header>
     <section class="backg">
         <div class="cake"></div>
@@ -42,6 +51,8 @@
                 <div class="slide"><img src="images/star03.jpg" alt="star01"></div>
                 <div class="slide"><img src="images/star01.jpg" alt="star01"></div>
                 <div class="slide"><img src="images/star01.jpg" alt="star01"></div>
+                <div class="slide"><img src="images/star01.jpg" alt="star01"></div>
+                <div class="slide"><img src="images/star01.jpg" alt="star01"></div>
             </div>
             <button class="next">&gt;</button>
         </div>
@@ -55,10 +66,12 @@
     </main>    
     <footer>
         <h2>star</h2>
-        <div>
-            icon
-            icon
-            icon
+        <div class="footer-icon">
+            <ul>
+                <li><i class="fa-brands fa-facebook-f"></i></li>
+                <li><i class="fa-brands fa-x-twitter"></i></li>
+                <li><i class="fa-brands fa-instagram"></i></li>
+            </ul>
         </div>
         <p>이용약관 개인정보처리방침</p>
         <p>Copyright &copy;2025 star All rights reserved.</p>
@@ -67,17 +80,29 @@
 <script>
     const menuIcon = document.querySelector('.menu-icon');
     const navLinks = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.overlay');
+    const closeBtn = document.querySelector('.close-btn');
 
     menuIcon.addEventListener('click', () => {  
-        navLinks.classList.toggle('nav-open');
+        navLinks.classList.toggle('active');
     });
 
+    overlay.addEventListener('click', () => {  
+        navLinks.classList.remove('active');
+    });
+
+    closeBtn.addEventListener('click', () => {  
+        navLinks.classList.remove('active');
+    });
+
+    // Best Item
     const slider = document.querySelector('.slider');
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
 
     let currentIndex = 0;
     const slideCount = document.querySelectorAll('.slide').length;
+    // const slideCount = slider.length;
 
     function moveSlide() {
     const slideWidth = slider.clientWidth / getVisibleSlideCount();
@@ -94,7 +119,7 @@
     if (currentIndex < slideCount - getVisibleSlideCount()) {
         currentIndex++;
     } else {
-        currentIndex = 0; // 처음으로
+        // currentIndex = 0; // 처음으로
     }
     moveSlide();
     });
@@ -103,20 +128,12 @@
     if (currentIndex > 0) {
         currentIndex--;
     } else {
-        currentIndex = slideCount - getVisibleSlideCount(); // 끝으로
+
     }
     moveSlide();
     });
 
     window.addEventListener('resize', moveSlide); // 반응형 대응
-
-
-    // const bg = document.querySelector('.main01 .bg');
-
-    // window.addEventListener('scroll', () => {
-    //     const scroll = window.scrollY;
-    //     bg.style.transform = `translateY(${scrollY * 0.3}px)`; 
-    // })
 
 </script>
 </html>

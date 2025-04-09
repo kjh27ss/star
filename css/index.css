@@ -1,16 +1,3 @@
-.grid-container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 기본적으로 3열 */
-    gap: 20px;
-    padding: 20px;
-}
-
-.grid-item{
-    background: lightgray;
-    padding: 20px;
-    text-align: center;
-}
-
 header{
     position: fixed; /* 스크롤시에도 고정 */
     top: 0;
@@ -27,33 +14,35 @@ header{
 .logo{
     font-size: 24px;
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 40px;
 }
-
-.nav-links{
+.nav-links ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    gap: 60px;
-    /* padding-left: 30px; */
-    margin-left: 30px;
-    /* border: 1px solid #333; */
+    justify-content: center;
 }
 
-.nav-links a {
+.nav-links li {
     text-decoration: none;
     font-size: 18px;
-    color: #000;
+    color: #080606;
+    padding: 20px 50px;
 }
-
 .menu-icon{
     display: none;
-    /* border: 1px solid #333; */
-    margin-right: 20px;
+    margin-right: 40px;
+}
+
+.close-btn{
+    display: none;
 }
 
 .user-icon img, .cart-icon img{
     width: 30px;
     height: 30px;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 body{
@@ -62,8 +51,6 @@ body{
     flex-direction: column;
     min-height: 100vh;
     text-align: center;
-    /* border: 1px solid #333; */
-    /* background-color: antiquewhite; */
 }
 
 /************** section **************/
@@ -83,11 +70,11 @@ body{
     background-position: center;
 }
 
-/* best-item */
+/************** best-item ***********/
 .best-item{
     padding: 60px 20px;
     text-align: center;
-    background-color: rgb(249, 243, 234);
+    background-color: rgb(250, 252, 237);
 }
 
 .best-item h2{
@@ -98,11 +85,13 @@ body{
 .slider-item{
     position: relative;
     overflow: hidden;
-    max-width: 1200px;
     margin: 0 auto;
+    max-height: 300px;
+
 }
 
 .slider{
+    /* flex: 1; */
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: calc(100% / 4); /* pc : 3개 */
@@ -113,7 +102,10 @@ body{
 
 .slide img{
     width: 100%;
-    height: 100%;
+    max-width: 300px;
+    height: auto;
+    aspect-ratio: 1 / 1; /* 가로 세로 비율 1:1 유지 */
+    object-fit: cover; /* 비율 깨짐 방지 */
     border-radius: 10px;
 }
 
@@ -127,8 +119,7 @@ body{
     cursor: pointer;
     background-color: transparent;
     font-size: 2em;
-    height: 25x;
-    z-index: 100;
+    z-index: 99;
 }
 
 .prev{
@@ -138,7 +129,7 @@ body{
 .next{
     right: 10px;
 }
-
+/* main */
 .main-item {
     position: relative;
     background-position: center;
@@ -170,15 +161,19 @@ body{
 footer{
     text-align: center;
     padding: 60px 0;
-    background-color: rgb(249, 243, 234);
+    background-color: rgb(250, 252, 237);
 }
-
 footer h2{
-    color: white;
+    color: rgb(152, 152, 150);
 }
 
 footer p{
-    color: rgb(150, 145, 145);
+    color: rgb(152, 152, 150);
+}
+
+.footer-icon ul{
+    display: flex;
+
 }
 
 
@@ -191,20 +186,70 @@ footer p{
     .nav-links{
         position: absolute;
         top: 0px;
-        right: -100%; /* 처음에는 화면 밖에 숨김 */
-        width: 100%;
-        background: #a59191;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-        transition: right 0.3s ease-in-out; /* 부드러운 애니메이션 */
+        right: 0;
+        width: 50%;
+        height: 100vh;
+        background: #fff;
+        transform: translateX(100%); /* 오른쪽 밖으로 숨김 */
+        transition: transform 0.3s ease-in-out;
+        z-index: 99;
     }
-    
+
+    .nav-links ul{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column; /* 수직 */
+        text-align: center;
+    }
+    .nav-links li{
+        padding: 20px 0;
+        border-bottom:1px  solid #e2dede;
+        color: #080606;
+    }
+
+    .overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 30;
+    }
+
+    .nav-links.active{
+        transform: translateX(0);
+    }
+
+    .nav-links.active ~ .overlay{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .nav-links.active .close-btn{
+        display: block;
+        cursor: pointer;
+        color: #fff;
+    }
     .menu-icon, .search-icon{
         display: block;
         cursor: pointer;
     }
 
+    .close-btn{
+        position: absolute;
+        top: 20px;
+        left: -40px;
+        font-size: 2rem;
+        color: #080606;
+        border: none;
+        background: none;
+        cursor: pointer;
+        z-index: 102;
+    }
     .user-icon{
         display: none;
     }
@@ -217,11 +262,6 @@ footer p{
     .search-icon img{
         width: 30px;
         height: 30px;
-    }
-
-    /* 메뉴가 열릴 때 적용할 클래스 */
-    .nav-open {
-        left: 0; /* 화면 안으로 슬라이드됨 */
     }
 
     .backg{
